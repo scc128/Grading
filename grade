@@ -1,0 +1,36 @@
+#!/bin/sh
+count=0;
+for dir in *;
+
+do 
+	if [ -d $dir ]
+	then 
+		# this is in a students work 
+		#echo $dir
+		countIncremented=0;
+		for file in $dir/*;
+
+		do 
+			#echo $file
+			
+			if [[ $file == *.java ]]
+			then 
+				gradeStudent $dir
+				break
+			else 
+				echo "failed to follow directions " > $dir/error.txt
+				if [ $countIncremented -eq 0 ]
+				then 
+					((count=count+1))
+					countIncremented=1;
+					echo $dir
+				fi 
+			fi
+			#this means we have found the java files and can grade 
+		done 
+
+	fi 
+
+done 
+
+echo $count

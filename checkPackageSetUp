@@ -1,0 +1,26 @@
+#!/bin/bash
+files=$(cat -)
+filename='';
+count=0;
+echo $files
+for tmp in $files 
+do 
+	if (($count == 0 )) ;
+	then 
+		# file is here 
+		filename=$tmp;
+		#echo $filename
+		((count++))
+	else
+		#package name is here 
+		bar=${tmp//.//}
+		
+		if ! [[ $filename =~ $bar ]];
+		then 
+			exit 1
+		fi
+		count=0;
+	fi 
+	
+done 
+exit 0 

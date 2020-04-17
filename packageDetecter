@@ -1,0 +1,40 @@
+#!/bin/sh
+
+count=0;
+function_test()
+{
+
+	
+	
+	#echo $count
+	tmp2=$1/* 
+
+	#cat $tmp2 | tr "//" /
+	
+	#echo $tmp2
+	#echo $tmp2
+	#echo 
+	# check if dir has a .java file in in and mark them 
+	for dir in $tmp2;
+	do
+		((count++))
+		#echo $dir
+		if [[ $dir =  *.java ]];
+		then 
+			#need to echo package statements of all of the files 
+			echo $dir
+			#echo tmp
+			cat $dir | grep package | java -classpath /Users/spencercurley/Desktop/projects/grader/scripts getPackageName
+		fi 
+	done
+	#check if dir has dirs in it and do this function agin
+	for dir in $tmp2
+	do 
+		if [[ -d $dir ]];
+		then 
+		function_test $dir 
+	fi
+	done 
+}
+function_test $1
+
